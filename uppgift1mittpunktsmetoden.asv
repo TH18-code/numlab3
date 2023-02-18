@@ -1,0 +1,38 @@
+h = 0.00011
+N = 500000
+
+
+a = 0.5; 
+
+q1_0 = 1 - a;
+q2_0 = 0;
+p1_0 = 0;
+p2_0 = ((1+a)/(1-a))^0.5; 
+
+nabla_p = @(p,q) [p(1), p(2)]'
+nabla_q = @(p,q) [q(1), q(2)]'./(norm(q)^3)
+
+% p och q är de som kommer från föregående tidssteg
+g = @(p, q, x) p - ((q + x.*h)./(norm(q + x.*h)^3)).*h;
+
+q = [q1_0, q2_0]';
+p = [p1_0, p2_0]';
+A = [q];
+
+for i = 1:1:N
+    % a
+    f = @(x) p - (q + (x + p).*(h/4)).*(h/(norm(q + (x + p).*(h/4))^3))
+    
+    
+    new_p = fix_point(f, p);
+    q = q + (p + p_new).*(h/2);
+    p = p_new;
+
+    A(:, i + 1) = q;
+end
+
+
+
+plot_columns(A);
+
+
