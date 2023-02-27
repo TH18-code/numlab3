@@ -20,9 +20,9 @@ open(write_obj);
 nframe=M; % kommando för film
 mov(1:nframe)= struct('cdata',[],'colormap',[]);
 set(gca,'nextplot','replacechildren')
-A(1,1) = -2; 
+A(1,1) = -1; 
 A(1,2) = 1; 
-A(N-1,N-1)=-2;
+A(N-1,N-1)=-1;
 A(N-1, N-2) = 1;
 
 X = dx:dx:1-dx;

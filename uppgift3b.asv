@@ -1,6 +1,6 @@
 N=200; % antal intervall
 a=1.0; % parameter i begynnelsedata
-T=10; % sluttid
+T=0.5; % sluttid
 dx=a/N; % steglängd i rummet
 dt=dx/4.0; % tidssteg, tänk på stabilitetsvillkoren
 c = 1;  % våghastigheten
@@ -25,13 +25,12 @@ A(1,2) = 1;
 A(N-1,N-1)=-2;
 A(N-1, N-2) = 1;
 
-X = dx:dx:1-dx;
 for n=2:N-2 % slinga med rumssteg för att bilda begynnelsedata och A
     A(n, (n-1):(n+1)) = [1,-2,1];
 end
 
 
-u(:,1) = sin([dx:dx:1-dx].*2*pi)./2 + sin([dx:dx:1-dx].*pi)./2+ sin([dx:dx:1-dx].*3*pi)./2;
+u(:,1) = sin([dx:dx:1-dx].*pi);
 % bilda A på randen
 for m=1:M % tidstegning med symplektiska Euler
 p(:,m+1) = p(:,m) + (dt*(c^2)*(N^2)).*(A*u(:, m));
